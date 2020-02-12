@@ -33,7 +33,8 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="table-responsive">
+        <button type="button" class="btn btn-primary">Add Post</button>
+        <div class="table-responsive mt-2">
           <table class="table table-dark">
             <thead>
             <tr>
