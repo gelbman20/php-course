@@ -7,12 +7,6 @@ function dd($date = "Where data shit man?") {
   die();
 }
 
-function getAllPosts() {
-  //1. Connect to DB
-  $pdo = new PDO("mysql:host=localhost;dbname=php_course_local;charset=utf8;", "root", "");
-  $sql = "SELECT * FROM posts";
-  $statement = $pdo->prepare($sql);
-  //2. Execute Query
-  $statement->execute();
-  return $statement->fetchAll(PDO::FETCH_ASSOC);
+function connectToDB() {
+  return new PDO("mysql:host=localhost;dbname=php_course_local;charset=utf8;", "root", "");
 }
