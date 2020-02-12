@@ -1,7 +1,7 @@
 <?php
 
 class Connections {
-  public static function make() {
-    return new PDO("mysql:host=localhost;dbname=php_course_local;charset=utf8;", "root", "");
+  public static function make($config) {
+    return new PDO("{$config['connection']}={$config['host']};dbname={$config['database']};charset={$config['charset']};", $config['username'], $config['password']);
   }
 }
