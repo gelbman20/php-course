@@ -1,3 +1,12 @@
+<?php
+include "functions.php";
+$db = include "database/start.php";
+
+$id = $_GET['id'];
+$post = $db->getOne('posts', $id);
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,37 +39,9 @@
 </header>
 <div class="section">
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
       <div class="col-lg-8">
-        <button type="button" class="btn btn-primary">Add Post</button>
-        <div class="table-responsive mt-2">
-          <table class="table table-dark">
-            <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Title</th>
-              <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- 4. Show with foreach loop -->
-            <?php foreach ($posts as $post): ?>
-              <tr>
-                <th scope="row"><?= $post['id'] ?></th>
-                <td>
-                  <a href="show.php?id=<?= $post['id'] ?>"><?= $post['title'] ?></a>
-                </td>
-                <td>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-warning">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
+        <h1><?= $post['title'] ?></h1>
       </div>
     </div>
   </div>

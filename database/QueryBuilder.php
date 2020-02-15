@@ -29,4 +29,12 @@ class QueryBuilder {
     }
     $statement->execute();
   }
+  
+  function getOne($table, $id) {
+    $sql = "SELECT * FROM $table WHERE id=:id";
+    $statement = $this->pdo->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_ASSOC);
+  }
 }
