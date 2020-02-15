@@ -32,7 +32,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <button type="button" class="btn btn-primary">Add Post</button>
+        <a href="create.php" class="btn btn-primary">Add Post</a>
         <div class="table-responsive mt-2">
           <table class="table table-dark">
             <thead>
@@ -52,8 +52,8 @@
                 </td>
                 <td>
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-warning">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <a href="edit.php?id=<?= $post['id'] ?>" class="btn btn-warning">Edit</a>
+                    <a href="delete.php?id=<?= $post['id'] ?>" class="btn btn-danger">Delete</a>
                   </div>
                 </td>
               </tr>
