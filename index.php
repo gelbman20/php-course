@@ -1,3 +1,41 @@
+<?php
+
+function dd($data) {
+ echo "<pre>";
+ var_dump($data);
+ echo "</pre>";
+ die();
+}
+
+class Connection {
+  public static function make() {
+    return new PDO( 'mysql:host=localhost;dbname=lesson01', 'root', '' );
+  }
+}
+
+class QueryBuilder {
+  
+  public $db = null;
+  
+  public function __construct($pdo) {
+    $this->db = $pdo;
+  }
+  
+  public function select($table) {
+    $statement = $this->db->prepare( "SELECT * FROM $table" );
+    $statement->execute();
+    return $statement->fetchAll( PDO::FETCH_ASSOC );
+  }
+}
+
+$db = new QueryBuilder(Connection::make());
+
+$users = $db->select('users');
+$posts = $db->select('posts');
+
+dd([$users, $posts]);
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
