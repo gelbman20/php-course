@@ -60,6 +60,7 @@
             <div class="col-12 mb-2">
               <div class="form-group">
                 <textarea class="form-control" id="textarea" name="text" rows="3" placeholder="Your text"></textarea>
+                <div class="invalid-feedback"></div>
               </div>
             </div>
             <div class="col-12">
