@@ -53,7 +53,24 @@ class Validator {
     return $this->data[$input_name];
   }
 
-  public function getValidationStatus() {
+  public function getValidationStatus(array $data) {
+    $status = true;
+    foreach ($data as $key => $value) {
+      if (!$value['is_valid']) {
+        return false;
+      }
+    }
 
+    return $status;
+  }
+
+  public function resetData() {
+    foreach ( $this->data as $key => $value ) {
+      $this->data[$key]['is_valid'] = false;
+      $this->data[$key]['value'] = null;
+      $this->data[$key]['error_message'] = '';
+    }
+
+    return $this->data;
   }
 }
