@@ -5,6 +5,7 @@ $config = include '../src/config.php';
 include "../src/Models/Connection/Connection.php";
 include "../src/Models/QueryBuilder/QueryBuilder.php";
 include "../src/Models/Validator/Validator.php";
+include "../src/Models/Flash/Flash.php";
 
 $data = [
   "name" => [
@@ -51,7 +52,8 @@ if ( $data_status ) {
   $db = new QueryBuilder( Connection::create($config['database']) );
   $db->addOne('posts', $data);
   $data = $validator->resetData();
-  header("Location: ./index.php");
+  Flash::create('alert', 'Your post have been successfully added!');
+  header("Location: ./");
 }
 
 // Views

@@ -34,14 +34,16 @@
 </header>
 <div class="section p-5">
   <div class="container">
-    <div class="row">
-      <div class="col-12 col-sm-6 col-md-4">
-        <div class="alert alert-dismissible alert-success">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>Well done!</strong> You successfully create <a href="#" class="alert-link">the new post!</a>.
+    <?php if( $_SESSION['alert'] ): ?>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-4">
+          <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span> <?= $_SESSION['alert'] ?> </span>
+          </div>
         </div>
       </div>
-    </div>
+    <?php endif; ?>
     <div class="row">
       <?php foreach ( $posts as $post ): ?>
         <?php
@@ -66,7 +68,7 @@
         </div>
       <?php endforeach; ?>
       <div class="col-12 mt-2">
-        <a href="create.php" type="button" class="btn btn-success">New Post</a>
+        <a href="/create" type="button" class="btn btn-success">New Post</a>
       </div>
     </div>
   </div>
