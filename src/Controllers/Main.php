@@ -6,7 +6,7 @@ include '../src/Models/Connection/Connection.php';
 include '../src/Models/QueryBuilder/QueryBuilder.php';
 include '../src/Models/Flash/Flash.php';
 
-
+// Controller
 $db = new QueryBuilder( Connection::create($config['database']) );
 $posts = $db->getAll('posts');
 

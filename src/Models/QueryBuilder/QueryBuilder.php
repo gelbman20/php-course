@@ -27,6 +27,11 @@ class QueryBuilder {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  /**
+   * @param string $table
+   * @param array $data
+   * @return bool
+   */
   public function addOne($table, $data) {
     $name = $data['name']['value'];
     $email = $data['email']['value'];
