@@ -54,7 +54,7 @@ if ( $data_status ) {
   $db->addOne('posts', $data);
   $data = $validator->resetData();
   Flash::create('alert', 'Your post have been successfully added!');
-  header("Location: ./");
+  header("Location: /");
 }
 
 // Views
