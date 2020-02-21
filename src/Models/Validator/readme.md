@@ -18,6 +18,7 @@ if($email->isSuccess()) {
 
 | Method  | Parameter | Description | Example |
 | ------------- | -- | ------------- | ------------- |
+| __construct  | $name, $value  | set field name and it value  | `new Validator('email', $_POST['email'])` | 
 | required  |   | return error if input is empty  | `required()` | 
 | isEmail  |   | return error if input is not email  | `isEmail()`  |
 | isSuccess  |   | return true if we don't has an error  | `isSuccess()`  |
