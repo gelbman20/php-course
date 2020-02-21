@@ -8,53 +8,28 @@ include "../src/Models/Validator/Validator.php";
 include "../src/Models/Flash/Flash.php";
 
 // Controller
-$data = [
-  "name" => [
-    "name" => "name",
-    "value" => $_POST["name"],
-    "type" => "text"
-  ],
-  "email" => [
-    "name" => "email",
-    "value" => $_POST["email"],
-    "type" => "email"
-  ],
-  "title" => [
-    "name" => "title",
-    "value" => $_POST["title"],
-    "type" => "text"
-  ],
-  "text" => [
-    "name" => "text",
-    "value" => $_POST["text"],
-    "type" => "text"
-  ]
-];
+if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== null && $_POST['text'] !== null ) {
+  $name = new Validator('name', $_POST['name']);
+  $name->required();
 
-// Validate Data and Create Error Messages
-$validator = new Validator($data);
+  $email = new Validator('email', $_POST['email']);
+  $email->required()->isEmail();
 
-$validator->checkData();
-$validator->createErrorMessages();
+  $title = new Validator('title', $_POST['title']);
+  $title->required();
 
-// Create Data and Session for View
-$data = $validator->getAll();
+  $text = new Validator('text', $_POST['text']);
+  $text->required();
 
-$_SESSION['name'] = $validator->getErrorMessage('name');
-$_SESSION['email'] = $validator->getErrorMessage('email');
-$_SESSION['title'] = $validator->getErrorMessage('title');
-$_SESSION['text'] = $validator->getErrorMessage('text');
+  if ($name->isSuccess() && $email->isSuccess() && $title->isSuccess() && $text->isSuccess()) {
+    header("Location: /");
+    exit;
+  }
 
-// Check All Data For Sent
-$data_status = $validator->getValidationStatus($data);
-
-// Add new post
-if ( $data_status ) {
-  $db = new QueryBuilder( Connection::create($config['database']) );
-  $db->addOne('posts', $data);
-  $data = $validator->resetData();
-  Flash::create('alert', 'Your post have been successfully added!');
-  header("Location: /");
+  $_SESSION['name'] = $name->getError();
+  $_SESSION['email'] = $email->getError();
+  $_SESSION['title'] = $title->getError();
+  $_SESSION['text'] = $text->getError();
 }
 
 // Views

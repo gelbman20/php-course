@@ -1,104 +1,74 @@
 <?php
 
 /**
- * Class Validator - validate input data
+ * Validation
  */
+
 class Validator {
-  private $data;
+
+  private $name;
+  private $value;
 
   /**
-   * Validator constructor.
-   * @param array $data
+   * Field name and value
+   * 
+   * @param string $name
+   * @param string $value
    */
-  public function __construct($data) {
-    $this->data = $data;
+  function __construct(string $name, $value) {
+    $this->name = $name;
+    $this->value = $value;
   }
 
   /**
-   * array data validity
+   * Field is required
+   * 
+   * return $this
    */
-  public function checkData() {
-    foreach ($this->data as $key => $value) {
-      if($value['value'] !== null) {
-        $this->data[$key]['is_valid'] = false;
-      }
-      
-      if ($value['value']) {
-        $this->data[$key]['is_valid'] = true;
-      }
+  public function required() {
+    if($this->value == '' || $this->value == null) {
+      $this->error = "Field {$this->name} is required";
     }
+
+    return $this;
   }
 
   /**
-   * Fills the array with a message about the types of errors
+   * Check input is an error
+   * 
+   * @return boolean
    */
-  public function createErrorMessages() {
-    foreach ($this->data as $key => $value) {
+  public function isSuccess() {
+    if(isset($this->error)) return false;
 
-      // Default Validation
-      if ( !$value['is_valid'] && isset($value['is_valid']) ) {
-        $this->data[$key]['error_message'] = "The input must be field.";
-      }
-
-      // Email Validation
-      if ( $value['is_valid'] && $value['type'] === 'email' ) {
-        if ( !filter_var($value['value'], FILTER_VALIDATE_EMAIL) ) {
-          $this->data[$key]['is_valid'] = false;
-          $this->data[$key]['error_message'] = "The email {$value['value']} not correct.";
-        }
-      }
-    }
+    return true;
   }
 
   /**
-   * @param string $input_name
-   * @return bool|mixed
-   */
-  public function getErrorMessage($input_name) {
-    $input_data = $this->data[$input_name];
-    return $input_data['is_valid'] ? false : $input_data['error_message'];
-  }
-
-  /**
-   * @return array
-   */
-  public function getAll() {
-    return $this->data;
-  }
-
-  /**
-   * @param $input_name
+   * Get an error
+   * 
    * @return mixed
    */
-  public function getOne($input_name) {
-    return $this->data[$input_name];
+  public function getError() {
+    if(!$this->isSuccess()) return $this->error;
+    return false;
   }
 
-  /**
-   * @param array $data
-   * @return bool
-   */
-  public function getValidationStatus(array $data) {
-    $status = true;
-    foreach ($data as $key => $value) {
-      if (!$value['is_valid']) {
-        return false;
-      }
-    }
-
-    return $status;
-  }
 
   /**
-   * @return array
+   * Check is Email
+   * 
+   * @return $this
+   * 
    */
-  public function resetData() {
-    foreach ( $this->data as $key => $value ) {
-      $this->data[$key]['is_valid'] = false;
-      $this->data[$key]['value'] = null;
-      $this->data[$key]['error_message'] = '';
-    }
+  public function isEmail() {
 
-    return $this->data;
+    if($this->error) return $this;
+    
+    
+    if (filter_var($this->value, FILTER_VALIDATE_EMAIL)) return $this;
+    $this->error = "Field {$this->value} is not email format";
+
+    return $this;
   }
 }
