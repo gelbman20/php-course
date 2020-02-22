@@ -33,11 +33,12 @@ class QueryBuilder {
    * @return bool
    */
   public function addOne($table, $data) {
-    $name = $data['name']['value'];
-    $email = $data['email']['value'];
-    $title = $data['title']['value'];
-    $text = $data['text']['value'];
-    $sql = "INSERT INTO $table (`id`, `name`, `email`, `title`, `text`, `time`) VALUES (NULL, '$name', '$email', '$title', '$text', CURRENT_TIMESTAMP)";
+    $name = $data[0]['value'];
+    $email = $data[1]['value'];
+    $title = $data[2]['value'];
+    $text = $data[3]['value'];
+    $time = $data[4]['value'];
+    $sql = "INSERT INTO $table (`id`, `name`, `email`, `title`, `text`, `time`) VALUES (NULL, '$name', '$email', '$title', '$text', '$time')";
     $statement = $this->pdo->prepare($sql);
     $statement->execute();
     return true;

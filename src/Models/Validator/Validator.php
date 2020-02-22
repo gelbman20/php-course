@@ -74,4 +74,22 @@ class Validator {
 
     return $this;
   }
+
+  /**
+   * Get Input Name
+   * 
+   * @return $name
+   */
+  public function getName() {
+    return $this->name;
+  }
+
+  /**
+   * Get Input Value
+   * 
+   * @return $value
+   */
+  public function getValue() {
+    return $this->value;
+  }
 }

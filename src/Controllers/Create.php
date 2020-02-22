@@ -22,8 +22,37 @@ if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== nu
   $text->required();
 
   if ($name->isSuccess() && $email->isSuccess() && $title->isSuccess() && $text->isSuccess()) {
-    header("Location: /");
-    exit;
+
+    $data = [
+      [
+        "name" => $name->getName(),
+        "value" => $name->getValue()
+      ],
+      [
+        "name" => $email->getName(),
+        "value" => $email->getValue()
+      ],
+      [
+        "name" => $title->getName(),
+        "value" => $title->getValue()
+      ],
+      [
+        "name" => $text->getName(),
+        "value" => $text->getValue()
+      ],
+      [
+        "name" => "time",
+        "value" => date("Y-m-d H:i:s")
+      ]
+    ];
+
+
+    $db = new QueryBuilder(Connection::create($config['database']));
+
+    $db->addOne('posts', $data);
+
+    // header("Location: /");
+    // exit;
   }
 
   $_SESSION['name'] = $name->getError();
