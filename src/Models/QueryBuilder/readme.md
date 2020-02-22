@@ -49,5 +49,5 @@ $db->delete('posts', $id);
 | getOne  | $table, $id  | return one row by id in the table  | `getOne('posts', 10)` | 
 | getAll  | $table  | return all rows from the table  | `getAll('posts')`  |
 | create  | $table, $data  | add new row in the table  | `create('posts', ["title" => "Hello World"])`  |
-| update  | $table, $data, $id  | change the row in the table | `update('posts', ["title" => "Change the World"]), 10`  |
-| delete  | $table, $id  | remove row in the table | `delete('posts', 10`  |
+| update  | $table, $data, $id  | change the row in the table | `update('posts', ["title" => "Change the World"], 10)`  |
+| delete  | $table, $id  | remove row in the table | `delete('posts', 10)`  |
