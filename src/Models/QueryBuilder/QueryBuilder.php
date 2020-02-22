@@ -28,19 +28,87 @@ class QueryBuilder {
   }
 
   /**
+   * Get the record from the Table
+   * 
+   * @param string $table
+   * @param int $id
+   * @return array
+   */
+  public function getOne($table, $id) {
+    $sql = "SELECT * FROM $table WHERE id=:id";
+    $statement = $this->pdo->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Create new record in Table
+   * 
    * @param string $table
    * @param array $data
-   * @return bool
+   * @return $this
    */
-  public function addOne($table, $data) {
-    $name = $data[0]['value'];
-    $email = $data[1]['value'];
-    $title = $data[2]['value'];
-    $text = $data[3]['value'];
-    $time = $data[4]['value'];
-    $sql = "INSERT INTO $table (`id`, `name`, `email`, `title`, `text`, `time`) VALUES (NULL, '$name', '$email', '$title', '$text', '$time')";
+  public function create($table, $data) {
+    $get_keys = array_keys($data);
+    $keys = implode(',', $get_keys);
+    $tags = ":" . implode(", :", $get_keys);
+
+    $sql = "INSERT INTO $table ($keys) VALUES ($tags)";
     $statement = $this->pdo->prepare($sql);
+
+    foreach ($data as $key => $value) {
+      $statement->bindValue($key, $value);
+    }
+
     $statement->execute();
-    return true;
+
+    return $this;
+  }
+
+  /**
+   * Change row in the Table
+   * 
+   * @param string $table
+   * @param array $data
+   * @param int $id
+   * @return $this
+   */
+  public function update($table, $data, $id) {
+    $keys = array_keys($data);
+
+    $string = '';
+
+    foreach ($keys as $key) {
+      $string .= $key . '=:' . $key . ',';
+    }
+
+    $keys = rtrim($string, ',');
+
+    $data['id'] = $id;
+
+    $sql = "UPDATE $table SET $keys WHERE id=:id";
+    $statement = $this->pdo->prepare($sql);
+    $statement->execute($data);
+
+    return $this;
+  }
+
+
+  /**
+   * Remove row in the Table
+   * 
+   * @param string $table
+   * @param int $id
+   * @return $this
+   */
+  public function delete($table, $id) {
+    $sql = "DELETE FROM $table WHERE id=:id";
+    $statement = $this->pdo->prepare($sql);
+    $statement->execute([
+      'id' => $id
+    ]);
+
+    return $this;
   }
 }
