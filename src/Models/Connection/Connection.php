@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class Connection - create PDO connection
+ * Class Connection
  * 
  * @author Andrii Helever <gelbman20@gmail.com>
  * @link https://github.com/gelbman20/php-course/tree/develop/src/Models/Connection
