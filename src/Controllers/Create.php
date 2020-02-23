@@ -35,8 +35,14 @@ if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== nu
 
     $db->create('posts', $data);
 
+    Flash::create('alert', "The post has been successfully created");
+
+    $_SESSION['name'] = false;
+    $_SESSION['email'] = false;
+    $_SESSION['title'] = false;
+    $_SESSION['text'] = false;
+
     header("Location: /");
-    exit;
   }
 
   $_SESSION['name'] = $name->getError();

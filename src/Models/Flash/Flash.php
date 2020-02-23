@@ -1,22 +1,26 @@
 <?php
 
 /**
- * Class Flash - output flash message/notification output
+ * Class Flash
  */
 class Flash {
 
   /**
-   * @param string $var
+   * Set Session with the name and message
+   * 
+   * @param string $name
    * @param string $message
    */
-  public static function create($var, $message) {
-    $_SESSION[$var] = $message;
+  public static function create($name, $message) {
+    $_SESSION[$name] = $message;
   }
 
   /**
-   * @param string $var
+   * Reset Session
+   * 
+   * @param string $name
    */
-  public static function reset($var) {
-    $_SESSION[$var] = false;
+  public static function reset($name) {
+    $_SESSION[$name] = false;
   }
 }
