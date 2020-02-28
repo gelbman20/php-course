@@ -2,10 +2,21 @@
 
 // Models
 $config = include '../src/config.php';
-include "../src/Models/Connection/Connection.php";
-include "../src/Models/QueryBuilder/QueryBuilder.php";
-include "../src/Models/Validator/Validator.php";
-include "../src/Models/Flash/Flash.php";
+
+spl_autoload_register ( function ($class) {
+  $sources = [
+    "../src/Models/Connection/$class.php",
+    "../src/Models/QueryBuilder/$class.php",
+    "../src/Models/Validator/$class.php",
+    "../src/Models/Flash/$class.php"
+  ];
+  
+  foreach ($sources as $source) {
+    if (file_exists($source)) {
+      require_once $source;
+    }
+  }
+});
 
 // Controller
 if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== null && $_POST['text'] !== null ) {
