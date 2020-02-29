@@ -13,7 +13,7 @@ class QueryBuilder {
   private $queryFactory;
 
   /**
-   * QueryBuilder constructor.
+   * Create PDO Connection and QueryFactory
    * @param PDO $pdo
    */
   public function __construct(PDO $pdo) {
@@ -22,10 +22,12 @@ class QueryBuilder {
   }
 
   /**
+   * Get all rows from the table
+   *
    * @param string $table
    * @return array
    */
-  public function getAll($table) {
+  public function getAll(string $table) {
     $select = $this->queryFactory->newSelect();
     $select->cols(['*']);
     $select->from($table);
@@ -37,13 +39,13 @@ class QueryBuilder {
   }
 
   /**
-   * Get the record from the Table
+   * Get the one record from the Table
    * 
    * @param string $table
    * @param int $id
    * @return array
    */
-  public function getOne($table, $id) {
+  public function getOne(string $table, int $id) {
     $select = $this->queryFactory->newSelect();
     $select->cols(['*']);
     $select->from($table);
@@ -63,7 +65,7 @@ class QueryBuilder {
    * @param array $data
    * @return $this
    */
-  public function create($table, $data) {
+  public function create(string $table, array $data) {
     $insert = $this->queryFactory->newInsert();
     $insert->into($table)->cols($data);
     
@@ -81,7 +83,7 @@ class QueryBuilder {
    * @param int $id
    * @return $this
    */
-  public function update($table, $data, $id) {
+  public function update(string $table, array $data, int $id) {
     $update = $this->queryFactory->newUpdate();
     $update->table($table)->cols($data)->where("id = $id");
     
@@ -99,7 +101,7 @@ class QueryBuilder {
    * @param int $id
    * @return $this
    */
-  public function delete($table, $id) {
+  public function delete(string $table, int $id) {
     $delete = $this->queryFactory->newDelete();
     $delete->from($table)->where("id = $id")->bindValue('id', $id);
     
