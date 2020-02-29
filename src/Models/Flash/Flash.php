@@ -1,5 +1,7 @@
 <?php
 
+namespace Models\Flash;
+
 /**
  * Class Flash
  */

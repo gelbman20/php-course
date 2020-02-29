@@ -1,0 +1,16 @@
+{
+  "require" : {
+    "aura/sqlquery": "2.7.*",
+    "ext-pdo": "*"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "Models\\Connection\\": "src/Models/Connection/",
+      "Models\\QueryBuilder\\": "src/Models/QueryBuilder/",
+      "Models\\Flash\\": "src/Models/Flash/",
+      "Models\\Validator\\": "src/Models/Validator/",
+      "Models\\Router\\": "src/Models/Router/"
+    }
+  }
+}

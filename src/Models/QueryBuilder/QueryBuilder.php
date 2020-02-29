@@ -1,5 +1,7 @@
 <?php
 
+namespace Models\QueryBuilder;
+use PDO;
 /**
  * Class QueryBuilder
  */

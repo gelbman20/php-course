@@ -1,5 +1,7 @@
 <?php
 
+namespace Models\Router;
+
 /**
  * Class Router - inbound URI router
  */

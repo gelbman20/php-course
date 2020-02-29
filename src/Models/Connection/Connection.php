@@ -1,5 +1,8 @@
 <?php
 
+namespace Models\Connection;
+use PDO;
+
 /**
  * Class Connection
  * 

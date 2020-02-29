@@ -2,7 +2,9 @@
 
 session_start();
 
-include '../src/Models/Router/Router.php';
+require "../vendor/autoload.php";
+
+use Models\Router\Router;
 
 $routes = [
   "/" => "../src/Controllers/Main.php",

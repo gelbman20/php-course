@@ -3,20 +3,10 @@
 // Models
 $config = include '../src/config.php';
 
-spl_autoload_register ( function ($class) {
-  $sources = [
-    "../src/Models/Connection/$class.php",
-    "../src/Models/QueryBuilder/$class.php",
-    "../src/Models/Validator/$class.php",
-    "../src/Models/Flash/$class.php"
-  ];
-  
-  foreach ($sources as $source) {
-    if (file_exists($source)) {
-      require_once $source;
-    }
-  }
-});
+use Models\Connection\Connection;
+use Models\QueryBuilder\QueryBuilder;
+use Models\Validator\Validator;
+use Models\Flash\Flash;
 
 // Controller
 if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== null && $_POST['text'] !== null ) {
@@ -41,7 +31,7 @@ if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== nu
       'text' => $text->getValue(),
       'time' => date("Y-m-d H:i:s")
     ];
-
+    
     $db = new QueryBuilder(Connection::create($config['database']));
 
     $db->create('posts', $data);
