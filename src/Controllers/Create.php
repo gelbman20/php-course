@@ -3,6 +3,7 @@
 // Models
 $config = include '../src/config.php';
 
+use League\Plates\Engine;
 use Models\Connection\Connection;
 use Models\QueryBuilder\QueryBuilder;
 use Models\Validator\Validator;
@@ -53,4 +54,5 @@ if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== nu
 }
 
 // Views
-include "../src/Views/Create.view.php";
+$templates = new Engine('../src/Views');
+echo $templates->render('Create.view');

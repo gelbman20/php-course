@@ -12,7 +12,7 @@ $routes = [
   "/create.php" => "../src/Controllers/Create.php",
 ];
 
-$page_not_found = '../src/Views/ErrorPage.view.php';
+$page_not_found = '../src/Controllers/PageNotFound.php';
 
 $router = new Router($routes, $page_not_found);
 $router->start();
