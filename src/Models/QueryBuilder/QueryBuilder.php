@@ -1,12 +1,16 @@
 <?php
 
 namespace Models\QueryBuilder;
+
+use Aura\SqlQuery\QueryFactory;
 use PDO;
+
 /**
  * Class QueryBuilder
  */
 class QueryBuilder {
   private $pdo;
+  private $queryFactory;
 
   /**
    * QueryBuilder constructor.
@@ -14,6 +18,7 @@ class QueryBuilder {
    */
   public function __construct(PDO $pdo) {
     $this->pdo = $pdo;
+    $this->queryFactory = new QueryFactory('mysql');
   }
 
   /**
@@ -21,9 +26,11 @@ class QueryBuilder {
    * @return array
    */
   public function getAll($table) {
-    $sql = "SELECT * FROM $table";
+    $select = $this->queryFactory->newSelect();
+    $select->cols(['*']);
+    $select->from($table);
 
-    $statement = $this->pdo->prepare($sql);
+    $statement = $this->pdo->prepare($select->getStatement());
     $statement->execute();
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -37,10 +44,15 @@ class QueryBuilder {
    * @return array
    */
   public function getOne($table, $id) {
-    $sql = "SELECT * FROM $table WHERE id=:id";
-    $statement = $this->pdo->prepare($sql);
-    $statement->bindParam(':id', $id);
-    $statement->execute();
+    $select = $this->queryFactory->newSelect();
+    $select->cols(['*']);
+    $select->from($table);
+    $select->where("id = $id");
+    $select->bindValue("id", $id);
+    
+    $statement = $this->pdo->prepare($select->getStatement());
+    $statement->execute($select->getBindValues());
+    
     return $statement->fetch(PDO::FETCH_ASSOC);
   }
 
@@ -52,18 +64,11 @@ class QueryBuilder {
    * @return $this
    */
   public function create($table, $data) {
-    $get_keys = array_keys($data);
-    $keys = implode(',', $get_keys);
-    $tags = ":" . implode(", :", $get_keys);
-
-    $sql = "INSERT INTO $table ($keys) VALUES ($tags)";
-    $statement = $this->pdo->prepare($sql);
-
-    foreach ($data as $key => $value) {
-      $statement->bindValue($key, $value);
-    }
-
-    $statement->execute();
+    $insert = $this->queryFactory->newInsert();
+    $insert->into($table)->cols($data);
+    
+    $statement = $this->pdo->prepare($insert->getStatement());
+    $statement->execute($insert->getBindValues());
 
     return $this;
   }
@@ -77,21 +82,11 @@ class QueryBuilder {
    * @return $this
    */
   public function update($table, $data, $id) {
-    $keys = array_keys($data);
-
-    $string = '';
-
-    foreach ($keys as $key) {
-      $string .= $key . '=:' . $key . ',';
-    }
-
-    $keys = rtrim($string, ',');
-
-    $data['id'] = $id;
-
-    $sql = "UPDATE $table SET $keys WHERE id=:id";
-    $statement = $this->pdo->prepare($sql);
-    $statement->execute($data);
+    $update = $this->queryFactory->newUpdate();
+    $update->table($table)->cols($data)->where("id = $id");
+    
+    $statement = $this->pdo->prepare($update->getStatement());
+    $statement->execute($update->getBindValues());
 
     return $this;
   }
@@ -105,11 +100,11 @@ class QueryBuilder {
    * @return $this
    */
   public function delete($table, $id) {
-    $sql = "DELETE FROM $table WHERE id=:id";
-    $statement = $this->pdo->prepare($sql);
-    $statement->execute([
-      'id' => $id
-    ]);
+    $delete = $this->queryFactory->newDelete();
+    $delete->from($table)->where("id = $id")->bindValue('id', $id);
+    
+    $statement = $this->pdo->prepare($delete->getStatement());
+    $statement->execute($delete->getBindValues());
 
     return $this;
   }

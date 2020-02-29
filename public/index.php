@@ -11,6 +11,7 @@ $routes = [
   "/create" => "../src/Controllers/Create.php",
   "/create.php" => "../src/Controllers/Create.php",
 ];
+
 $page_not_found = '../src/Views/ErrorPage.view.php';
 
 $router = new Router($routes, $page_not_found);
