@@ -2,16 +2,11 @@
 
 <div class="section p-5">
   <div class="container">
-    <?php if( $_SESSION['alert'] ): ?>
       <div class="row">
         <div class="col-12 col-sm-6 col-md-4">
-          <div class="alert alert-dismissible alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <span> <?= $_SESSION['alert'] ?> </span>
-          </div>
+          <?= flash()->display(); ?>
         </div>
       </div>
-    <?php endif; ?>
     <div class="row">
       <?php foreach ( $posts as $post ): ?>
         <?php

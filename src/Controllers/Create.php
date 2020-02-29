@@ -7,7 +7,7 @@ use League\Plates\Engine;
 use Models\Connection\Connection;
 use Models\QueryBuilder\QueryBuilder;
 use Models\Validator\Validator;
-use Models\Flash\Flash;
+use Tamtamchik\SimpleFlash\Flash;
 
 // Controller
 if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== null && $_POST['text'] !== null ) {
@@ -37,7 +37,8 @@ if($_POST['name'] !== null && $_POST['email'] !== null && $_POST['title'] !== nu
 
     $db->create('posts', $data);
 
-    Flash::create('alert', "The post has been successfully created");
+    $flash = new Flash();
+    $flash->message('The post has been successfully created.', 'success');
 
     $_SESSION['name'] = false;
     $_SESSION['email'] = false;
