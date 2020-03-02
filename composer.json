@@ -14,7 +14,8 @@
       "Models\\QueryBuilder\\": "src/Models/QueryBuilder/",
       "Models\\Flash\\": "src/Models/Flash/",
       "Models\\Validator\\": "src/Models/Validator/",
-      "Models\\Router\\": "src/Models/Router/"
+      "Models\\Router\\": "src/Models/Router/",
+      "Controllers\\": "src/Controllers/"
     }
   }
 }

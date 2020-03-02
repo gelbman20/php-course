@@ -5,9 +5,9 @@ if( !session_id() ) @session_start();
 require "../vendor/autoload.php";
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-  $r->addRoute('GET', '/', 'get_home');
-  $r->addRoute('GET', '/create', 'get_create');
-  $r->addRoute('POST', '/create', 'get_create');
+  $r->addRoute('GET', '/', [ 'Controllers\Reducer', 'home']);
+  $r->addRoute('GET', '/create', [ 'Controllers\Reducer', 'create']);
+  $r->addRoute('POST', '/create', [ 'Controllers\Reducer', 'create']);
 });
 
 // Fetch method and URI from somewhere
@@ -27,19 +27,12 @@ switch ($routeInfo[0]) {
     break;
   case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
     $allowedMethods = $routeInfo[1];
-    // ... 405 Method Not Allowed
+    include '../src/Controllers/PageNotFound.php';
     break;
   case FastRoute\Dispatcher::FOUND:
     $handler = $routeInfo[1];
     $vars = $routeInfo[2];
-    $handler();
+    $controller = new $handler[0];
+    call_user_func([$controller, $handler[1]]);
     break;
-}
-
-function get_home() {
-  include '../src/Controllers/Main.php';
-}
-
-function get_create() {
-  include '../src/Controllers/Create.php';
 }
