@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-xl-10">
         <h2 class="mb-4">New Post</h2>
-        <form action="create.php" method="POST">
+        <form action="/create" method="POST">
           <div class="row">
             <div class="col-12 col-md-4 mb-2">
               <div class="form-group">
