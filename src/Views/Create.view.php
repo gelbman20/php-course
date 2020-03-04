@@ -9,25 +9,25 @@
           <div class="row">
             <div class="col-12 col-md-4 mb-2">
               <div class="form-group">
-                <input type="text" class="form-control <?= $_SESSION['name'] ? 'is-invalid' : '' ?>" id="name" name="name" value="<?= $data['name']['value'] ?>" placeholder="Name">
+                <input type="text" class="form-control <?= $_SESSION['name'] ? 'is-invalid' : '' ?>" id="name" name="name" value="<?= $data['name'] ?>" placeholder="Name">
                 <div class="invalid-feedback"><?= $_SESSION['name'] ?></div>
               </div>
             </div>
             <div class="col-12 col-md-4 mb-2">
               <div class="form-group">
-                <input type="text" class="form-control <?= $_SESSION['email'] ? 'is-invalid' : '' ?>" id="email" name="email" value="<?= $data['email']['value'] ?>" placeholder="Enter email">
+                <input type="text" class="form-control <?= $_SESSION['email'] ? 'is-invalid' : '' ?>" id="email" name="email" value="<?= $data['email'] ?>" placeholder="Enter email">
                 <div class="invalid-feedback"><?= $_SESSION['email'] ?></div>
               </div>
             </div>
             <div class="col-12 col-md-4 mb-2">
               <div class="form-group">
-                <input type="text" class="form-control <?= $_SESSION['title'] ? 'is-invalid' : '' ?>" id="title" name="title" value="<?= $data['title']['value'] ?>" placeholder="Post Title">
+                <input type="text" class="form-control <?= $_SESSION['title'] ? 'is-invalid' : '' ?>" id="title" name="title" value="<?= $data['title'] ?>" placeholder="Post Title">
                 <div class="invalid-feedback"><?= $_SESSION['title'] ?></div>
               </div>
             </div>
             <div class="col-12 mb-2">
               <div class="form-group">
-                <textarea class="form-control <?= $_SESSION['text'] ? 'is-invalid' : '' ?>" id="textarea" name="text" rows="3" placeholder="Your text"><?= $data['text']['value'] ?></textarea>
+                <textarea class="form-control <?= $_SESSION['text'] ? 'is-invalid' : '' ?>" id="textarea" name="text" rows="3" placeholder="Your text"><?= $data['text'] ?></textarea>
                 <div class="invalid-feedback"><?= $_SESSION['text'] ?></div>
               </div>
             </div>

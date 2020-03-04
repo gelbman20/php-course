@@ -15,7 +15,9 @@
       "Models\\Flash\\": "src/Models/Flash/",
       "Models\\Validator\\": "src/Models/Validator/",
       "Models\\Router\\": "src/Models/Router/",
-      "Controllers\\": "src/Controllers/"
+      "Controllers\\Home\\": "src/Controllers/Home",
+      "Controllers\\Create\\": "src/Controllers/Create",
+      "Controllers\\PageNotFound\\": "src/Controllers/PageNotFound"
     }
   }
 }
